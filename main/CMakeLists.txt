@@ -2,8 +2,10 @@ idf_component_register(
     SRCS 
         "main.cpp"
         "myDebug/debug.cpp"
+        "myWatchdog/watchdog.cpp"
     INCLUDE_DIRS 
         "."
         "myConfig"
         "myDebug"
+        "myWatchdog"
 )

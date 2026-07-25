@@ -21,3 +21,4 @@ Hardware Watchdog
 ===========================================================*/
 
 #define CONFIG_WATCHDOG_ENABLED true
+#define CONFIG_WATCHDOG_TIMEOUT_MS 5000

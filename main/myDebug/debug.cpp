@@ -30,11 +30,14 @@ static const char *debug_level_name(esp_log_level_t level)
 
 void debug_init()
 {
+    ESP_LOGI(TAG, "Initializing Debug System....");
     if (!CONFIG_DEBUG_ENABLED)
     {
+        ESP_LOGI(TAG, "Debug System not enabled");
         return;
     }
-
+    
+    ESP_LOGI(TAG, "Configuring Debug System....");
     esp_log_level_set("*", CONFIG_DEBUG_LEVEL);
 
     DEBUG_INFO(TAG, "Debug System initialized");
