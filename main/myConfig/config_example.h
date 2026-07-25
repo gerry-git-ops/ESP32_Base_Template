@@ -9,6 +9,7 @@ Serial Debugging
 ===========================================================*/
 
 #define CONFIG_DEBUG_ENABLED true
+#define CONFIG_DEBUG_LEVEL ESP_LOG_INFO
 
 /*===========================================================
 Hardware Watchdog
