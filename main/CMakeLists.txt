@@ -3,6 +3,7 @@ idf_component_register(
         "main.cpp"
         "myDebug/debug.cpp"
         "myWatchdog/watchdog.cpp"
+        "myWatchdog/watchdog_tasks.cpp"
     INCLUDE_DIRS 
         "."
         "myConfig"

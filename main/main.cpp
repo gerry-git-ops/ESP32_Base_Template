@@ -10,7 +10,7 @@ extern "C" void app_main(void)
     ESP_LOGI(TAG, "Main started");
     debug_init();
     watchdog_init();
-
+    
      while (true)
     {
         esp_task_wdt_reset();

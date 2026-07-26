@@ -2,6 +2,8 @@
 
 #include "esp_log.h"
 
+extern void debug_task(void *parameter);
+
 void debug_init();
 
 #define DEBUG_ERROR(TAG, ...)   ESP_LOGE(TAG, __VA_ARGS__)

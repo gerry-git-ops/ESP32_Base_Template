@@ -1,15 +1,16 @@
 #include "watchdog.h"
+#include "watchdog_tasks.h"
 #include "myDebug/debug.h"
 #include "myConfig/config.h"
 #include "esp_task_wdt.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+//#include "freertos/FreeRTOS.h"
+//#include "freertos/task.h"
 
 static const char *TAG = "DEBUG-WATCHDOG";
-static TaskHandle_t watchdog_task_handle = nullptr;
-static bool watchdog_task_registered = false;
 
-static void watchdog_task(void *parameter)
+extern bool watchdog_task_registered = false;
+
+extern void watchdog_task(void *parameter)
 {
     while (!watchdog_task_registered)
     {
@@ -46,27 +47,7 @@ void watchdog_init()
         DEBUG_ERROR(TAG, "Watchdog initialization failed: %s", esp_err_to_name(result));
         return;
     }
-    esp_task_wdt_add(NULL);
-    if (result != ESP_OK)
-    {
-        DEBUG_ERROR(TAG, "Failed to add app_main to Watchdog: %s", esp_err_to_name(result));
-        return;
-    }
-    xTaskCreate(
-        watchdog_task,
-        "watchdog_task",
-        2048,
-        nullptr,
-        5,
-        &watchdog_task_handle
-    );
-    esp_task_wdt_add(watchdog_task_handle);
-    if (result != ESP_OK)
-    {
-        DEBUG_ERROR(TAG, "Failed to add Watchdog Task to Watchdog: %s", esp_err_to_name(result));
-        return;
-    }
-    watchdog_task_registered = true;
-
     DEBUG_INFO(TAG, "Watchdog System initialized");
+
+    watchdog_tasks_init();   
 }

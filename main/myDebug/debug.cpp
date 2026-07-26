@@ -1,8 +1,23 @@
 #include "debug.h"
 #include "esp_log.h"
+#include "esp_task_wdt.h"
 #include "myConfig/config.h"
+#include "myWatchdog/watchdog_tasks.h"
 
 static const char *TAG = "DEBUG-SYSTEM";
+
+extern void debug_task(void *parameter)
+{
+    while (!debug_task_registered)
+    {
+        vTaskDelay(pdMS_TO_TICKS(10)); 
+    }
+    while (true)
+    {
+        esp_task_wdt_reset();
+        vTaskDelay(pdMS_TO_TICKS(1000));  
+    }  
+}
 
 static const char *debug_level_name(esp_log_level_t level)
 {
