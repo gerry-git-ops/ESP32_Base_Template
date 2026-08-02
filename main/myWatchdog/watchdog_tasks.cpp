@@ -12,7 +12,7 @@ static TaskHandle_t watchdog_task_handle = nullptr;
 static TaskHandle_t debug_task_handle = nullptr;
 //static TaskHandle_t YURcoolMODUL_task_handle = nullptr;
 
-extern bool debug_task_registered = false;
+bool debug_task_registered = false;
 
  /*===========================================================
     app-main

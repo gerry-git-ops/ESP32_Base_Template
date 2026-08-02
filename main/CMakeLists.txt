@@ -4,9 +4,11 @@ idf_component_register(
         "myDebug/debug.cpp"
         "myWatchdog/watchdog.cpp"
         "myWatchdog/watchdog_tasks.cpp"
+        "myWLAN/wlan.cpp"
     INCLUDE_DIRS 
         "."
         "myConfig"
         "myDebug"
         "myWatchdog"
+        "myWLAN"
 )

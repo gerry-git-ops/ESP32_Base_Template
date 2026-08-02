@@ -1,6 +1,10 @@
 #pragma once
 
 /*===========================================================
+ESP32 Base Template - Configuration
+===========================================================*/
+
+/*===========================================================
 Serial Debugging
 ===========================================================*/
 
@@ -18,3 +22,12 @@ Hardware Watchdog
 
 #define CONFIG_WATCHDOG_ENABLED true
 #define CONFIG_WATCHDOG_TIMEOUT_MS 5000
+
+
+/*===========================================================
+WiFi Configuration
+===========================================================*/
+
+#define CONFIG_WLAN_ENABLES true
+#define CONFIG_WLAN_SSID "YOUcoolSSID"
+#define CONFIG_WLAN_PASSWORD "YOUcoolPASSWORD" 
