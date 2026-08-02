@@ -3,12 +3,8 @@
 #include "myDebug/debug.h"
 #include "myConfig/config.h"
 #include "esp_task_wdt.h"
-//#include "freertos/FreeRTOS.h"
-//#include "freertos/task.h"
 
 static const char *TAG = "DEBUG-WATCHDOG";
-
-extern bool watchdog_task_registered = false;
 
 extern void watchdog_task(void *parameter)
 {

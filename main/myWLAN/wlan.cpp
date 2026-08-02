@@ -3,7 +3,9 @@
 #include "wlan.h"
 #include "myConfig/config.h"
 #include "myDebug/debug.h"
+#include "myWatchdog/watchdog_tasks.h"
 
+#include "esp_task_wdt.h"
 #include "esp_event.h"
 #include "esp_netif.h"
 #include "esp_wifi.h"
@@ -15,6 +17,19 @@
 static const char *TAG = "DEBUG-WLAN";
 static int reconnect_retry_count = 0;
 static const int MAX_RECONNECT_RETRIES = 10;
+
+void wlan_task(void *parameter)
+{
+   while (!wlan_task_registered)
+    {
+        vTaskDelay(pdMS_TO_TICKS(10)); 
+    }
+    while (true)
+    {
+        esp_task_wdt_reset();
+        vTaskDelay(pdMS_TO_TICKS(1000));  
+    }  
+}
 
 static void wlan_event_handler(
     void *arg,

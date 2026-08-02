@@ -13,6 +13,7 @@ extern "C" void app_main(void)
     watchdog_init();
     wlan_init();
     
+    
      while (true)
     {
         esp_task_wdt_reset();

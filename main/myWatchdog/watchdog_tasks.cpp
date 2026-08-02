@@ -2,17 +2,20 @@
 #include "watchdog.h"
 #include "myDebug/debug.h"
 #include "myConfig/config.h"
+#include "myWLAN/wlan.h"
 #include "esp_task_wdt.h"
-//#include "freertos/FreeRTOS.h"
-//#include "freertos/task.h"
+
 
 static const char *TAG = "DEBUG-WATCHDOG-TASK";
 
 static TaskHandle_t watchdog_task_handle = nullptr;
 static TaskHandle_t debug_task_handle = nullptr;
+static TaskHandle_t wlan_task_handle = nullptr;
 //static TaskHandle_t YURcoolMODUL_task_handle = nullptr;
 
 bool debug_task_registered = false;
+bool wlan_task_registered = false;
+bool watchdog_task_registered = false;
 
  /*===========================================================
     app-main
@@ -83,6 +86,35 @@ void debug_task()
 }
 
 /*===========================================================
+    WLAN-MODUL
+    ===========================================================*/
+void wlan_task()
+{
+    if (!CONFIG_WLAN_ENABLED)
+    {
+        DEBUG_DEBUG(TAG, "WLAN Modul not Enabled");
+        return;
+    }
+    DEBUG_DEBUG(TAG, "Adding WLAN Task to Watchdog System...." );
+    xTaskCreate(
+        wlan_task,
+        "wlan_task",
+        2048,
+        nullptr,
+        5,
+        &wlan_task_handle
+    );
+    esp_err_t result = esp_task_wdt_add(wlan_task_handle);
+    if (result != ESP_OK)
+    {
+        DEBUG_ERROR(TAG, "Failed to add WLAN Task to Watchdog: %s", esp_err_to_name(result));
+        return;
+    }
+    wlan_task_registered = true;
+    DEBUG_INFO(TAG, "Adding WLAN Task to Watchdog System successful" );
+}
+
+/*===========================================================
     YOUcoolMODUL
     ===========================================================*/
 /*void YOUcoolMODUL_task()
@@ -115,5 +147,6 @@ void watchdog_tasks_init()
     main_task();
     wachdog_task();
     debug_task();
+    wlan_task();
     //YOUcoolMODUL_task();  
 }
